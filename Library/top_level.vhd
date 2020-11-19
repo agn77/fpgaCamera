@@ -7,7 +7,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 
-entity digital_cam_impl1 is
+entity fpgaCamera is
   Port ( clk_50 : in  STD_LOGIC;
     btn_resend          : in  STD_LOGIC;
     led_config_finished : out STD_LOGIC;
@@ -31,10 +31,10 @@ entity digital_cam_impl1 is
     ov7670_pwdn  : out STD_LOGIC;
     ov7670_reset : out STD_LOGIC
   );
-end digital_cam_impl1;
+end fpgaCamera;
 
 
-architecture my_structural of digital_cam_impl1 is
+architecture my_structural of fpgaCamera is
 
 
   COMPONENT VGA
@@ -96,13 +96,14 @@ architecture my_structural of digital_cam_impl1 is
     );
   END COMPONENT;
 
-  -- DE2-115 board has an Altera Cyclone V E, which has ALTPLL's'
+  -- DE10-Standard board with Altera PLL using Cyclone V
   COMPONENT my_altpll
   PORT (
-    inclk0 : IN STD_LOGIC := '0';
-    c0     : OUT STD_LOGIC ;
-    c1     : OUT STD_LOGIC 
-    );
+    refclk   : in  std_logic := '0'; --  refclk.clk
+		rst      : in  std_logic := '0'; --   reset.reset
+		outclk_0 : out std_logic;        -- outclk0.clk
+		outclk_1 : out std_logic         -- outclk1.clk
+	);
   END COMPONENT;
 
   COMPONENT Address_Generator
@@ -122,6 +123,7 @@ architecture my_structural of digital_cam_impl1 is
   signal resend     : std_logic;
   signal nBlank     : std_logic;
   signal vSync      : std_logic;
+  signal resetWire  : std_logic;
 
   signal wraddress  : std_logic_vector(16 downto 0);
   signal wrdata     : std_logic_vector(11 downto 0);   
@@ -140,9 +142,10 @@ begin
    
 
   Inst_vga_pll: my_altpll PORT MAP(
-    inclk0 => clk_50,
-    c0 => clk_50_camera,
-    c1 => clk_25_vga
+    refclk => clk_50,
+    outclk_0 => clk_50_camera,
+    outclk_1 => clk_25_vga,
+	 rst      => resetWire
   );    
     
     
