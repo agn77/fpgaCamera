@@ -1,2 +1,2 @@
 # fpgaCamera
-Impleting an OV7670 CMOS camera module with DE10-Standard FPGA
+Implementing an OV7670 CMOS camera module with DE10-Standard FPGA
