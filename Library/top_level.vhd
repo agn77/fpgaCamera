@@ -1,16 +1,9 @@
--- cristinel ababei; Jan.29.2015; CopyLeft (CL);
--- code name: "digital cam implementation #1";
--- project done using Quartus II 13.1 and tested on DE2-115;
+
+-- Impletement on DE10-Standard using Quartus Lite 20.1 
+-- Alberto Gonzalez Navarro, 11/23/2020
 --
--- this design basically connects a CMOS camera (OV7670 module) to
--- DE2-115 board; video frames are picked up from camera, buffered
--- on the FPGA (using embedded RAM), and displayed on the VGA monitor,
--- which is also connected to the board; clock signals generated
--- inside FPGA using ALTPLL's that take as input the board's 50MHz signal
--- from on-board oscillator; 
---
--- this whole project is an adaptation of Mike Field's original implementation 
--- that can be found here:
+-- Original Source's: http://www.dejazzer.com/eigenpi/digital_camera/digital_camera.html
+-- and
 -- http://hamsterworks.co.nz/mediawiki/index.php/OV7670_camera
 
 library IEEE;
