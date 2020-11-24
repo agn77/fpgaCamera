@@ -1,7 +1,17 @@
-
--- reworked for DE10-Standard
--- Alberto Gonzalez Navarro
--- original Source: http://www.dejazzer.com/eigenpi/digital_camera/digital_camera.html
+-- cristinel ababei; Jan.29.2015; CopyLeft (CL);
+-- code name: "digital cam implementation #1";
+-- project done using Quartus II 13.1 and tested on DE2-115;
+--
+-- this design basically connects a CMOS camera (OV7670 module) to
+-- DE2-115 board; video frames are picked up from camera, buffered
+-- on the FPGA (using embedded RAM), and displayed on the VGA monitor,
+-- which is also connected to the board; clock signals generated
+-- inside FPGA using ALTPLL's that take as input the board's 50MHz signal
+-- from on-board oscillator; 
+--
+-- this whole project is an adaptation of Mike Field's original implementation 
+-- that can be found here:
+-- http://hamsterworks.co.nz/mediawiki/index.php/OV7670_camera
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -96,14 +106,14 @@ architecture my_structural of fpgaCamera is
     );
   END COMPONENT;
 
-  -- DE10-Standard board with Altera PLL using Cyclone V
+  -- DE2-115 board has an Altera Cyclone V E, which has ALTPLL's'
   COMPONENT my_altpll
   PORT (
     refclk   : in  std_logic := '0'; --  refclk.clk
 		rst      : in  std_logic := '0'; --   reset.reset
 		outclk_0 : out std_logic;        -- outclk0.clk
 		outclk_1 : out std_logic         -- outclk1.clk
-	);
+    );
   END COMPONENT;
 
   COMPONENT Address_Generator
@@ -123,7 +133,6 @@ architecture my_structural of fpgaCamera is
   signal resend     : std_logic;
   signal nBlank     : std_logic;
   signal vSync      : std_logic;
-  signal resetWire  : std_logic;
 
   signal wraddress  : std_logic_vector(16 downto 0);
   signal wrdata     : std_logic_vector(11 downto 0);   
@@ -143,9 +152,9 @@ begin
 
   Inst_vga_pll: my_altpll PORT MAP(
     refclk => clk_50,
+	 rst => '0',
     outclk_0 => clk_50_camera,
-    outclk_1 => clk_25_vga,
-	 rst      => resetWire
+    outclk_1 => clk_25_vga
   );    
     
     

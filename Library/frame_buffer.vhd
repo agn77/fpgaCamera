@@ -15,13 +15,13 @@ USE ieee.std_logic_1164.all;
 ENTITY frame_buffer IS
   PORT
   (
-    data     : IN STD_LOGIC_VECTOR (11 DOWNTO 0);
-    rdaddress : IN STD_LOGIC_VECTOR (16 DOWNTO 0);
-    rdclock   : IN STD_LOGIC;
-    wraddress : IN STD_LOGIC_VECTOR (16 DOWNTO 0);
-    wrclock   : IN STD_LOGIC;
-    wren     : IN STD_LOGIC;
-    q        : OUT STD_LOGIC_VECTOR (11 DOWNTO 0)
+    data : IN std_logic_vector(11 downto 0);
+    rdaddress : IN std_logic_vector(16 downto 0);
+    rdclock : IN std_logic;
+    wraddress : IN std_logic_vector(16 downto 0);
+    wrclock : IN std_logic;
+    wren : IN std_logic;          
+    q : OUT std_logic_vector(11 downto 0)
   );
 END frame_buffer;
 
@@ -32,13 +32,13 @@ ARCHITECTURE SYN OF frame_buffer IS
   COMPONENT my_frame_buffer_15to0 IS
   PORT
   (
-    data    : IN STD_LOGIC_VECTOR (11 DOWNTO 0);
-    rdaddress    : IN STD_LOGIC_VECTOR (15 DOWNTO 0);
-    rdclock    : IN STD_LOGIC ;
-    wraddress    : IN STD_LOGIC_VECTOR (15 DOWNTO 0);
-    wrclock    : IN STD_LOGIC  := '1';
-    wren    : IN STD_LOGIC  := '0';
-    q    : OUT STD_LOGIC_VECTOR (11 DOWNTO 0)
+    data : IN std_logic_vector(11 downto 0);
+    rdaddress : IN std_logic_vector(15 downto 0);
+    rdclock : IN std_logic;
+    wraddress : IN std_logic_vector(15 downto 0);
+    wrclock : IN std_logic;
+    wren : IN std_logic;          
+    q : OUT std_logic_vector(11 downto 0)
   );
   END COMPONENT;
 

@@ -247,7 +247,7 @@ end architecture rtl; -- of my_altpll
 -- Retrieval info: 	<generic name="gui_phase_shift_deg17" value="0.0" />
 -- Retrieval info: 	<generic name="gui_actual_phase_shift17" value="0" />
 -- Retrieval info: 	<generic name="gui_duty_cycle17" value="50" />
--- Retrieval info: 	<generic name="gui_pll_auto_reset" value="On" />
+-- Retrieval info: 	<generic name="gui_pll_auto_reset" value="Off" />
 -- Retrieval info: 	<generic name="gui_pll_bandwidth_preset" value="Auto" />
 -- Retrieval info: 	<generic name="gui_en_reconf" value="false" />
 -- Retrieval info: 	<generic name="gui_en_dps_ports" value="false" />
